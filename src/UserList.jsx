@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import User from "./User";
 
-const UserList = ({ users, deleteUser, editUser }) => {
-  const userList = users.map((user) => {
+const UserList = ({ contacts, deleteUser, editUser }) => {
+  const userList = contacts.map((user) => {
     return (
       <User
-        user={user}
+        user={contacts}
         key={user.id}
         deleteUser={deleteUser}
         editUser={editUser}
@@ -18,7 +18,7 @@ const UserList = ({ users, deleteUser, editUser }) => {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.users,
+    contacts: state.contacts,
   };
 };
 
