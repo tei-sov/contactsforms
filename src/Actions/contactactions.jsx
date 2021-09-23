@@ -34,3 +34,38 @@ export const DeleteContact = (id) => {
     payload: id,
   };
 };
+
+// export const getAllUsers = () => {
+//   return(dispatch,state,{getFirestore}) => {
+//     getFirestore().collection().onSnapshot((Snapshot) => {
+//       let users=[];
+//       snapshot.forEach() =>{
+//         users.push((doc.data())
+//       })
+
+//       dispatch({
+//         type:'SET_ALL_USERS',
+//         payload:users
+//       })
+//     })
+//   };
+
+// };
+
+export const getAllusers = () => {
+  return (dispatch, state, { getFirestore }) => {
+    getFirestore()
+      .collection("users")
+      .onSnapshot((snapshot) => {
+        let users = [];
+        snapshot.forEach((doc) => {
+          users.push(doc.data());
+        });
+
+        dispatch({
+          type: "SET_ALL_USERS",
+          payload: users,
+        });
+      });
+  };
+};
