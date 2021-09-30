@@ -35,6 +35,37 @@ export const DeleteContact = (id) => {
   };
 };
 
+export const editContact = (updatedContact) => {
+  console.log(updatedContact);
+  return (dispatch, state, { getFirestore }) => {
+    getFirestore()
+      .collection("contact")
+      .doc(updatedContact.id)
+      .set(updatedContact)
+      .then(() => {});
+  };
+};
+
+export const getAllcontacts = () => {
+  return (dispatch, state, { getFirestore }) => {
+    getFirestore()
+      .collection("contacts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        let contacts = [];
+        snapshot.forEach((doc) => {
+          contacts.push(doc.data());
+          console.log(contacts, doc);
+        });
+
+        dispatch({
+          type: "SET_ALL_CONTACTS",
+          payload: contacts,
+        });
+      });
+  };
+};
+
 // export const getAllUsers = () => {
 //   return(dispatch,state,{getFirestore}) => {
 //     getFirestore().collection().onSnapshot((Snapshot) => {
@@ -52,20 +83,23 @@ export const DeleteContact = (id) => {
 
 // };
 
-export const getAllusers = () => {
-  return (dispatch, state, { getFirestore }) => {
-    getFirestore()
-      .collection("users")
-      .onSnapshot((snapshot) => {
-        let users = [];
-        snapshot.forEach((doc) => {
-          users.push(doc.data());
-        });
+// export const getAllcontacts = () => {
+//   return (dispatch, state, { getFirestore }) => {
+//     getFirestore()
+//       .collection("contacts")
+//       .orderBy("timestamp", "desc")
+//       .onSnapshot((snapshot) => {
+//         let contacts = [];
+//         snapshot.forEach((doc) => {
+//           users.push(doc.data());
+//           console.log(users, doc);
+//         });
 
-        dispatch({
-          type: "SET_ALL_USERS",
-          payload: users,
-        });
-      });
-  };
-};
+//         dispatch({
+//           type: "SET_ALL_CONTACTS",
+//           payload: users,
+//         });
+//       });
+//   };
+// };
+// }
